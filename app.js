@@ -1,6 +1,7 @@
 const priceDisplay = document.getElementById("price");
 
-const url = 'https://api.coinbase.com/v2/prices/spot?currency=USD'
+let currency = 'USD';
+const url = `https://api.coinbase.com/v2/prices/spot?currency=${currency}`
 
 async function updatePrice() {
     try {
@@ -11,11 +12,12 @@ async function updatePrice() {
         let jsonResponse = await response.json();
 
         let price = jsonResponse.data.amount;
-        priceDisplay.innerText = price;
+        priceDisplay.innerText = `${price} ${currency}`;
 
     } catch (err) {
         console.log(err);
     }
 }
 
-let updateInterval = setInterval(updatePrice, 1000);
+updatePrice();
+let updateInterval = setInterval(updatePrice, 20000);
